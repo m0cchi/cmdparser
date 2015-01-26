@@ -1,7 +1,6 @@
 # Cmdparser
 
-TODO: Write a gem description
-
+ruby's command provider
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -20,12 +19,27 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+require 'cmdparser'
 
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/cmdparser/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+CmdParser.new{
+  on ['help','-h'] do
+    print "help command\n"
+  end
+  on 'server' do
+  end
+  on 'server',['port','-p'] do |port|
+    print "port #{port}\n"
+  end
+  on 'server',['type','-t'] do |type|
+    print "type #{type}\n"
+  end
+}.invoke
+# filename : cmd.rb
+# call : ./cmd.rb server port 80
+# => port 80\n
+# call : ./cmd.rb port 80
+# => 
+# call : ./cmd.rb server port 80 type http
+# => port 80\ntype http
+```
