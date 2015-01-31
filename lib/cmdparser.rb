@@ -1,7 +1,8 @@
 class CmdParser
 
-  def initialize &block
+  def initialize args=ARGV,&block
     @procs = {}
+    @ARGV = args
     if block
       instance_eval &block
     end
@@ -21,7 +22,7 @@ class CmdParser
 
   def invoke
     skip = 0
-    ARGV.each_with_index do |v,i|
+    @ARGV.each_with_index do |v,i|
       if skip > 0
         skip -= 1
         next
@@ -37,8 +38,8 @@ class CmdParser
       end
       if len > 0
         (1..len).each do |n|
-          if n + i < ARGV.length
-            args << ARGV[n + i]
+          if n + i < @ARGV.length
+            args << @ARGV[n + i]
             skip += 1
           end
         end
