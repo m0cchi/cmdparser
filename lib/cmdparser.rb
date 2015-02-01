@@ -33,7 +33,7 @@ class CmdParser
       args = []
       proc = @procs[v]
       len = proc[:arg_len]
-       unless !proc[:declaration] || declaration?(proc[:declaration])
+      unless !proc[:declaration] || declaration?(proc[:declaration])
         next
       end
       if len > 0
